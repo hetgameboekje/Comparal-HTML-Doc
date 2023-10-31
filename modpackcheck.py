@@ -4,7 +4,8 @@ from bs4 import BeautifulSoup
 # Initialize dictionaries to store LI items and their counts for both documents
 document1_li = {}
 document2_li = {}
-
+document1 = input("What is the filename in this folder for the previous version? \n")
+document2 = input("What is the filename in this folder for the upcoming version? \n")
 # Function to process an HTML document and update the dictionaries
 def process_html_file(file_path, li_dict):
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -18,10 +19,10 @@ def process_html_file(file_path, li_dict):
                 li_dict[text] = 1
 
 # Process the first HTML document
-process_html_file('modlist2.html', document1_li)
+process_html_file(document1, document1_li)
 
 # Process the second HTML document
-process_html_file('modlist.html', document2_li)
+process_html_file(document2, document2_li)
 
 # Initialize the final dictionary with LI items and their counts
 li_dict = {}

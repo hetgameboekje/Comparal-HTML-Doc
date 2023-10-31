@@ -1,10 +1,11 @@
 import json
 from bs4 import BeautifulSoup
 
-# Initialize an empty JSON dictionary to store LI items and their counts
-li_dict = {}
+# Initialize dictionaries to store LI items and their counts for both documents
+document1_li = {}
+document2_li = {}
 
-# Function to process an HTML document and update the JSON dictionary
+# Function to process an HTML document and update the dictionaries
 def process_html_file(file_path, li_dict):
     with open(file_path, 'r', encoding='utf-8') as file:
         soup = BeautifulSoup(file, 'html.parser')
@@ -17,15 +18,25 @@ def process_html_file(file_path, li_dict):
                 li_dict[text] = 1
 
 # Process the first HTML document
-process_html_file('modlist.html', li_dict)
+process_html_file('modlist2.html', document1_li)
 
 # Process the second HTML document
-process_html_file('modlist2.html', li_dict)
+process_html_file('modlist.html', document2_li)
 
-# Update counts for LI items that exist in the first document but not in the second
-for li_item in li_dict.copy():  # Use copy to avoid modifying the dictionary while iterating
-    if li_dict[li_item] == 1:
-        li_dict[li_item] = 0
+# Initialize the final dictionary with LI items and their counts
+li_dict = {}
+
+# Update counts for lines present in both documents
+for item in document1_li:
+    if item in document2_li:
+        li_dict[item] = 2
+        del document2_li[item]
+    else:
+        li_dict[item] = 1
+
+# Add lines present only in the second document
+for item in document2_li:
+    li_dict[item] = 0
 
 # Save the result to a JSON file
 with open('li_counts.json', 'w') as json_file:

@@ -13,6 +13,14 @@ if index.isdigit():
     if indexInt == 1:
         for item, count in li_dict.items():
             if count == 1:
-                print(f'Item: {item}, Count: {count}')
+                print(f'{item}')
+    if indexInt == 2:
+        for item, count in li_dict.items():
+            if count == 2:
+                print(f'{item}')
+    if indexInt == 0:
+        for item, count in li_dict.items():
+            if count == 0:
+                print(f'{item}')
 else:
     print("\n this is not a digit!")
